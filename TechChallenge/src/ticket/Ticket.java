@@ -1,6 +1,8 @@
 package ticket;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import product.Product;
+import product.TypeOfProduct;
 
 public class Ticket {
 	private double taxesCost;
@@ -13,8 +15,9 @@ public class Ticket {
 		this.totalCost = 0.0;
 	}
 	
-	public void addProduct(Product product) {
-		this.products.add(product);
+	public void addProduct(double price, int qty, String desc, TypeOfProduct type, boolean isImported) {
+		Product p = new Product(price, qty, desc, type, isImported);
+		this.products.add(p);
 	}
 	
 	public double getTaxesCost() {
@@ -38,6 +41,7 @@ public class Ticket {
 	
 	@Override 
 	public String toString() {
+		DecimalFormat df = new DecimalFormat("##.00");
 		String str = "";
 		int i;
 		for(i = 0; i < this.products.size(); i++) {
@@ -45,11 +49,11 @@ public class Ticket {
 			str += "\n";
 		}
 		str += "Impuestos sobre las ventas: ";
-		str += getTaxesCost();
+		str += df.format(getTaxesCost());
 		str += "€";
 		str += "\n";
 		str += "Total: ";
-		str += getTotalCost();
+		str += df.format(getTotalCost());
 		str += "€";
 		return str;
 	}

@@ -1,19 +1,23 @@
 package product;
 
+import java.text.DecimalFormat;
+
 public class Product {
 	private double price;
 	private int qty;
 	private boolean isImported = false;
-	protected double tax = 10;
 	private double additionalTaxes;
 	private String desc;
+	private TypeOfProduct type;
 	
-	public Product(double price, int qty, String desc) {
+	public Product(double price, int qty, String desc, TypeOfProduct type, boolean isImported) {
 		this.price = price;
 		this.qty = qty;
 		this.desc = desc;
-		if (this.desc.contains("importado") || this.desc.contains("importaci[ó|o]n")) {
-			this.isImported = true;
+		this.type = type;
+		this.isImported = isImported;
+		if (this.isImported) {
+			this.additionalTaxes = 5.0;
 		}
 	}
 	
@@ -30,19 +34,16 @@ public class Product {
 	}
 	
 	public double getTotalTaxes() {
-		double taxes = Math.round(((this.tax/100)*this.price)*100)/100d;
+		double taxes = Math.ceil(((this.type.getApplicableTax()/100)*this.price)*20.0)/20.0;
 		if (this.isImported) {
-			taxes += roundTaxes((this.additionalTaxes/100)*this.price);
+			taxes += Math.ceil(((this.additionalTaxes/100)*this.price)*20.0)/20.0;
 		}
 		return taxes;
 	}	
-	
-	public double roundTaxes(double num) {
-		return Math.round((5*(Math.ceil(Math.abs(num/5))))*100.0)/100.0;
-	}
-	
+
 	@Override
 	public String toString() {
-		return this.qty + " " + this.desc + ": " + this.price + "€";
+		DecimalFormat df = new DecimalFormat("#0.00");
+		return this.qty + " " + this.desc + ": " + df.format((this.price + this.getTotalTaxes())) + "€";
 	}
 }
