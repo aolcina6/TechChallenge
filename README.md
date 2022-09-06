@@ -1,8 +1,8 @@
 # Coding Technical Challenge - Liferay - Andrea Olcina 
 Dos modos de ejecución: 
-- Bash Script desde la terminal
+- Bash Script desde la terminal --> 
   Desde la ruta TechChallenge/bin, ejecutar el comando "bash script.sh"
- - Comando Java desde la terminal 
+ - Comando Java desde la terminal -->
   Desde la ruta TechChallenge/bin, ejecutar el comando "java Main"
  
  Dentro de la propia ejecución hay 2 tipos: una ejecución automatizada de 8 casos de prueba o una ejecución en la que se pedirá al usuario un nombre de fichero para ejecutar la prueba. Esta aplicación entra en un bucle infinito por lo que para finalizar se deberá introducir "3", la opción de salida de ejecución. 
