@@ -4,22 +4,42 @@ import java.util.ArrayList;
 import product.Product;
 import product.TypeOfProduct;
 
+/**
+ * Class Ticket, a collection of products.
+ * @author: Andrea Olcina
+ */
 public class Ticket {
+	//Private Vars
 	private double taxesCost;
 	private double totalCost;
 	private ArrayList<Product> products = new ArrayList<Product>();
 	
+	/**
+	 * Constructor.
+	 */
 	public Ticket() {
 		// TODO Auto-generated constructor stub
 		this.taxesCost = 0.0;
 		this.totalCost = 0.0;
 	}
 	
+	/**
+	 * Creates and adds a product into the collection inside the ticket.
+	 * @param price
+	 * @param qty
+	 * @param desc
+	 * @param type
+	 * @param isImported
+	 */
 	public void addProduct(double price, int qty, String desc, TypeOfProduct type, boolean isImported) {
 		Product p = new Product(price, qty, desc, type, isImported);
 		this.products.add(p);
 	}
 	
+	/**
+	 * Calculates the sum of the taxes of each product in the ticket.
+	 * @return cost of the taxes
+	 */
 	public double getTaxesCost() {
 		int i;
 		for (i = 0; i < this.products.size(); i++) {
@@ -29,10 +49,14 @@ public class Ticket {
 		return this.taxesCost;
 	}
 	
+	/**
+	 * Calculates the total cost of the ticket including taxes.
+	 * @return total cost
+	 */
 	public double getTotalCost() {
 		int i;
 		for (i = 0; i < this.products.size(); i++) {
-			this.totalCost += this.products.get(i).getPrice();
+			this.totalCost += this.products.get(i).getCost();
 		}
 		this.totalCost += this.taxesCost;
 		this.totalCost = Math.round(this.totalCost*100)/100d;
@@ -41,7 +65,7 @@ public class Ticket {
 	
 	@Override 
 	public String toString() {
-		DecimalFormat df = new DecimalFormat("##.00");
+		DecimalFormat df = new DecimalFormat("#0.00");
 		String str = "";
 		int i;
 		for(i = 0; i < this.products.size(); i++) {
